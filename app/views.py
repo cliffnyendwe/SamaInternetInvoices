@@ -8,6 +8,11 @@ import xlwt
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.shortcuts import render, get_object_or_404, redirect
+from django.template import loader
+from django.http import HttpResponse
+from django import template
+from .models import Agent
 
 from .filters import ProjectsFilter, AgentFilter, InvoiceFilter
 # Create your views here.
@@ -40,7 +45,6 @@ def export_invoices_xls(request):
 
     wb.save(response)
     return response
-
 
 def export_users_csv(request):
     response = HttpResponse(content_type='text/csv')
@@ -100,21 +104,20 @@ class NewTeamLeader(CreateView):
 
 @login_required(login_url="/login/")
 def Agents(request):
-	context = {}
-	filtered_agents = AgentFilter(
-		request.GET,
-		queryset=Agent.objects.all()
-	)
-	context['filtered_agents'] = filtered_agents
+	q = request.GET.get('q') if request.GET.get('q') != None else ''
+	filtered_agents = Agent.objects.filter(Q(name__icontains=q) | Q(ssdc_number__icontains=q) | Q(project__title__icontains=q))
+	
+	context = {
+		"filtered_agents": filtered_agents
+	}
 
 	template_name = "app/agents.html"
-	return render(request, template_name, context=context)
+	return render(request, template_name, context)
 
 class NewAgent(CreateView):
 	model = Agent
 	form_class = AddAgentForm
 	template_name = "app/new-agent.html"
-
 
 def all_projects(request):
 	q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -130,7 +133,6 @@ def all_projects(request):
 	context['filtered_projects'] = filtered_projects
 	"""
 	return render(request, "app/projects.html", context)
-
 
 class NewProject(CreateView):
 	model = Project
@@ -164,6 +166,14 @@ def agent_profile(request):
 	}
 	return render(request, "agent-profile.html", context)
 
+def team_leader_profile(request):
+	teamleader = TeamLeader.objects.filter(user=request.user)
+	print("Agent is: ",teamleader)
+	context = {
+		"teamleader": teamleader
+	}
+	return render(request, "team-leader-profile.html", context)
+
 def agent_invoices(request):
 	agent = Agent.objects.filter(user=request.user)
 	agent_invoices = Invoice.objects.filter(agent=request.user.agent)
@@ -180,17 +190,10 @@ class ApproveInvoice(UpdateView):
 	template_name = "app/approve-invoice.html"
 	success_url = reverse_lazy("tl-invoices")
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.template import loader
-from django.http import HttpResponse
-from django import template
-from .models import Agent
-
 @login_required(login_url="/login/")
 def index(request):
     agents = Agent.objects.all()
     return render(request, 'index.html', {'agents':agents})
-
 
 def my_agents(request):
 	context = {}
@@ -225,7 +228,6 @@ class UpdateProject(UpdateView):
 	fields = "__all__"
 	template_name = "app/update-project.html"
 
-
 def ApprovedInvoices(request):
 	q = request.GET.get('q') if request.GET.get('q') != None else ''
 	"""
@@ -235,19 +237,41 @@ def ApprovedInvoices(request):
 	)
 	context['filtered_invoices'] = filtered_invoices
 	"""
-	filtered_invoices = Invoice.objects.filter(Q(agent__ssdc_number__icontains=q) | Q(project__title__icontains=q) | Q(status__icontains=q) | Q(due_date__icontains=q))
+	filtered_invoices = Invoice.objects.filter(Q(agent__ssdc_number__icontains=q) | Q(project__title__icontains=q) | Q(status__icontains=q) | Q(due_date__icontains=q), approved=True)
 	context = {
 		"filtered_invoices": filtered_invoices
 	}
 	return render(request, "app/admin-invoices.html", context=context)
 
-
-def tl_projects(request):
-	tl_projects = TeamLeader.objects.filter(te=request.user.teamleader)
+def DeclinedInvoices(request):
+	q = request.GET.get('q') if request.GET.get('q') != None else ''
+	"""
+	filtered_invoices = InvoiceFilter(
+		request.GET,
+		queryset=Invoice.objects.filter(approved=True)
+	)
+	context['filtered_invoices'] = filtered_invoices
+	"""
+	filtered_invoices = Invoice.objects.filter(Q(agent__ssdc_number__icontains=q) | Q(project__title__icontains=q) | Q(status__icontains=q) | Q(due_date__icontains=q), approved=False)
 	context = {
-		"tl_projects": tl_projects
+		"filtered_invoices": filtered_invoices
 	}
-	return render(request, "app/tl-projects.html", context)
+	return render(request, "app/admin-invoices.html", context=context)
+
+def PaidInvoices(request):
+	q = request.GET.get('q') if request.GET.get('q') != None else ''
+	"""
+	filtered_invoices = InvoiceFilter(
+		request.GET,
+		queryset=Invoice.objects.filter(approved=True)
+	)
+	context['filtered_invoices'] = filtered_invoices
+	"""
+	filtered_invoices = Invoice.objects.filter(Q(agent__ssdc_number__icontains=q) | Q(project__title__icontains=q) | Q(status__icontains=q) | Q(due_date__icontains=q), approved=True, status="Paid")
+	context = {
+		"filtered_invoices": filtered_invoices
+	}
+	return render(request, "app/admin-invoices.html", context=context)
 
 class UpdateTL(UpdateView):
 	model = TeamLeader

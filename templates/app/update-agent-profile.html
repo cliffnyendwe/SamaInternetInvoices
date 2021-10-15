@@ -1,0 +1,19 @@
+{% extends "forms-base.html" %}
+
+{% block content %}
+  <h4 class="text-center">Update Agent</h4>
+
+  <div class="form-group">
+      <form action="" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <br>
+          <button type="submit" class="btn btn-success">Update Details</button>
+      </form>
+  </div>
+<script>
+var name = "{{ user.id }}";
+console.log(name)
+document.getElementById("user").value = name;
+</script>
+{% endblock content %}

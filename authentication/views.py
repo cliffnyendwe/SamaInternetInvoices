@@ -27,7 +27,7 @@ def login_view(request):
         else:
             msg = 'Error validating the form'    
 
-    return render(request, "authentication/login.html", {"form": form, "msg" : msg})
+    return render(request, "accounts/login.html", {"form": form, "msg" : msg})
 
 def register_user(request):
 
@@ -45,11 +45,11 @@ def register_user(request):
             msg     = 'User created - please <a href="/login">login</a>.'
             success = True
             
-            #return redirect("/login/")
+            return redirect("login")
 
         else:
             msg = 'Form is not valid'    
     else:
         form = SignUpForm()
 
-    return render(request, "authentication/register.html", {"form": form, "msg" : msg, "success" : success })
+    return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })

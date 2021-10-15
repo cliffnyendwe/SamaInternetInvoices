@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="main-content">
+  <section class="wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+        <ol class="breadcrumb">
+          <li><i class="fa fa-home"></i><a href="/">Home</a></li>
+          <li><i class="fa fa-laptop"></i>All Team Leaders</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="table-responsive">
+          <section class="panel">
+            <header class="panel-heading">
+              Team Leaders List
+            </header>
+            <table class="table ml-3">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>SSDC Number</th>
+                  <th>Project</th>
+                  <th>Email</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+        {% for team_leader in team_leaders %}
+                <tr>
+                  <td>{{team_leader.name}}</td>
+                  <td>{{team_leader.ssdc_number}}</td>
+                  <td>{{team_leader.project}}</td>
+                  <td>{{team_leader.user.email}}</td>
+                  <td>
+                    <a href="#" class="btn btn-primary">Update</a>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                  </td>
+               
+                </tr>
+      {% endfor %}
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+      </div>
+
+  </section>
+</section>
+
+{% endblock content %}

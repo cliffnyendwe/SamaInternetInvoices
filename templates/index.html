@@ -1,0 +1,15 @@
+{% if user.is_authenticated %}
+
+{% if user.is_superuser %}
+	{% include "admin-profile.html" %}
+{% elif user.teamleader.id %}
+	{% include "team-leader-profile.html" %}
+{% elif user.agent.id %}
+	{% include "agent-profile.html" %}
+
+{% else %}
+	{% include "home.html" %}
+{% endif %}
+
+{% endif %}
+

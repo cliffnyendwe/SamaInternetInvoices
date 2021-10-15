@@ -15,5 +15,15 @@ class TeamLeaderAdmin(admin.ModelAdmin):
         model = TeamLeader
         exclude = ['__all__']
 
+@admin.register(Project)
+class Admin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Invoice)
+class InvoiceAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Agent, AgentAdmin)
 admin.site.register(TeamLeader, TeamLeaderAdmin)

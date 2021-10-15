@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section id="main-content">
+  <section class="wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+        <ol class="breadcrumb">
+          <li><i class="fa fa-home"></i><a href="/">Home</a></li>
+          <li><i class="fa fa-laptop"></i>All Agents</li>
+        </ol>
+      </div>
+    </div>
+
+      <div class="row">
+      <form method="GET">
+        <div class="row">
+          <div class="col-md-4">
+            {{filtered_agents.form.ssdc_number | as_crispy_field}}
+          </div>
+          <div class="col-md-4">
+            {{filtered_agents.form.project | as_crispy_field}}
+          </div>
+          <div class="col-md-4">
+            <label></label><br>
+            <input type="submit" value="Filter" class="btn btn-info mt-5">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="table-responsive">
+          <section class="panel">
+            <header class="panel-heading">
+              Agents List
+            </header>
+            <table class="table ml-3">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>SSDC Number</th>
+                  <th>Project</th>
+                  <th>Email</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+        {% for agent in filtered_agents.qs %}
+        	{% if agent.project == request.user.teamleader.project %}
+                <tr>
+                  <td>{{agent.name}}</td>
+                  <td>{{agent.ssdc_number}}</td>
+                  <td>{{agent.project}}</td>
+                  <td>{{agent.user.email}}</td>               
+                </tr>
+           {% endif %}
+      {% endfor %}
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+      </div>
+
+  </section>
+</section>
+
+{% endblock content %}

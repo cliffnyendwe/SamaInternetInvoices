@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-user-md"></i> Agent Details</h3>
+            <ol class="breadcrumb">
+                      
+            </ol>
+          </div>
+        </div>
+        <div class="row">
+<section>
+  <div id="profile" class="tab-pane">
+    <section class="panel">
+      <div class="panel-body bio-graph-info">
+        
+        <div class="row">
+          <div class="bio-row">
+            <p><span>Name </span>: {{agent.name}} </p>
+          </div>
+          <div class="bio-row">
+            <p><span>Email </span>: {{agent.user.email}}</p>
+          </div>
+          <div class="bio-row">
+            <p><span>Project </span>: {{agent.project}}</p>
+          </div>
+          <div class="bio-row">
+            <p><span>SSDC Number </span>: {{agent.ssdc_number}}</p>
+          </div>
+          <div class="bio-row">
+            <p><span>Date Joined </span>: {{agent.date_joined}}</p>
+          </div>
+          <div class="bio-row">
+            <p><span>Payment Method </span>: {{agent.payment_method}}</p>
+          </div>
+          <div class="bio-row">
+            <p><span>Till/Paybill Number </span>: {{agent.till_or_paybill_number}}</p>
+          </div>
+          <div class="bio-row">
+            <p><span>Acc. Number </span>: {{agent.acc_number}}</p>
+          </div>
+          <div class="bio-row">
+            <p><span>Installation </span>: {{agent.installation}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+  </section>
+</section>
+
+{% endblock content %}

@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +34,7 @@
   <link href="{% static 'nice-admin/css/style-responsive.css' %}" rel="stylesheet" />
   <link href="{% static 'nice-admin/css/xcharts.min.css' %}" rel=" stylesheet">
   <link href="{% static 'nice-admin/css/jquery-ui-1.10.4.min.css' %}" rel="stylesheet">
-
+<style type="text/css">
 <style>
 #footer {
    left: 0;
@@ -53,9 +52,6 @@
 </head>
 
 <body class="body-container">
-  <!-- container section start -->
-
-
   <section id="container" class="">
 
 
@@ -75,7 +71,8 @@
       <!--logo end-->
 {% endif %}
 {% block search %}
-  
+
+
 {% endblock search %}
       <div class="top-nav notification-row">
         <!-- notificatoin dropdown start-->
@@ -160,8 +157,9 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
             <ul class="sub">
-              <li><a class="" href="{% url 'admin-invoices' %}">Invoices List</a></li>
-              
+              <li><a class="" href="{% url 'admin-invoices' %}">Approved Invoices</a></li>
+              <li><a class="" href="{% url 'declined-invoices' %}">Declined Invoices</a></li>
+              <li><a class="" href="{% url 'paid-invoices' %}">Paid Invoices</a></li>
               
             </ul>
           </li>
@@ -173,7 +171,7 @@
                       </a>
             <ul class="sub">
               <li><a class="" href="/">My Profile</a></li>
-               <li><a class="" href="#">Update Profile</a></li>
+               <li><a class="" href="/admin/">Update Profile</a></li>
               
             </ul>
           </li>
@@ -249,18 +247,6 @@
     {% block content %}
 
     {% endblock content %}
-    <div class="text-center" id="footer">
-      <hr style="border: 2px solid yellow;" />
-        <div class="credits">
-          <!--
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
-          -->
-          <a href="https://sama.com/">SAMA</a>
-        </div>
-      </div>
     <!--main content end-->
   </section>
   <!-- container section start -->
