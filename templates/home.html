@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>LOGIN | SAMA SOURCE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<!-- font icon -->
+  <link href="{% static 'nice-admin/css/elegant-icons-style.css' %}" rel="stylesheet" />
+  <link href="{% static 'nice-admin/css/font-awesome.min.css' %}" rel="stylesheet" />
+  <!-- full calendar css-->
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{% static 'login-form-19/css/style.css' %}">
+<style>
+  .body-container {
+    background: linear-gradient(to right, yellow, black);
+  }
+</style>
+	</head>
+	<body class="body-container">
+	<section class="ftco-section mt-5">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-8 text-center">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap py-5">
+		      	
+		      	<h3 class="text-center mb-0">Create A Profile</h3>
+		      							
+	          <div class="w-100 text-center mt-4 text">
+	          	<p class="mb-2 text-light">Are you an Agent?</p>
+		          <a href="{% url 'new-agent' %}" class="btn btn-info">Create Profile</a>
+	          </div>
+	          <hr>
+	          <div class="w-100 text-center mt-4 text">
+	          	<p class="mb-2 text-light">Are you an Team Leader?</p>
+		          <a href="{% url 'new-team-leader' %}" class="btn btn-info">Create Profile</a>
+	          </div>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="{% static 'login-form-19/js/jquery.min.js' %}"></script>
+  <script src="{% static 'login-form-19/js/popper.js' %}"></script>
+  <script src="{% static 'login-form-19/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'login-form-19/js/main.js' %}"></script>
+
+	</body>
+</html>
+

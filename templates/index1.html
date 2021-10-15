@@ -1,0 +1,12 @@
+<html>
+<head>
+        <title>BlogSecureMedia</title>
+</head>
+<body>
+        <h1>Blog Secure Model</h1>
+        {% for i in object %}
+        <h1>Title:</h1><p>{{object.title}}</p><br>
+        <h1>pdf file:</h1><button ><a href="{{i.pdf.url}}">Click to view</a></button><br>
+        {% endfor %}
+</body>
+</html>
