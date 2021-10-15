@@ -62,7 +62,7 @@ class UpdateTLForm(forms.ModelForm):
 class AddInvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
-        fields = ('agent', 'isp_name', 'monthly_subscription', 'invoice_file', 'due_date', 'date_submitted', 'reason_declined')
+        fields = ('agent', 'isp_name', 'monthly_subscription', 'invoice_file', 'due_date', 'date_submitted')
 
         widgets = {
             'agent': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'agent', 'type': 'hidden'}),
