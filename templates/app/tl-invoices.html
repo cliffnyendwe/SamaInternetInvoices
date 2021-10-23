@@ -41,6 +41,7 @@
                   <th>Agent SSDC Number</th>
                   <th>Due Date</th>
                   <th>Approved</th>
+                  <th>View Invoice</th>
                   <th>Invoice PDF File</th>   
                   <th colspan="3">Actions</th>                      
                 </tr>
@@ -52,6 +53,9 @@
                   <td>{{invoice.agent.ssdc_number}}</td>
                   <td>{{invoice.due_date}}</td>
                   <td>{{invoice.invoice_approved}}</td>
+                  <td>
+                    <a href="{{ invoice.invoice_file.url }}">View Invoice</a>
+                  </td>
                   <td>
                     <a href="{{ invoice.invoice_file.url }}" download>Download File</a>
                   </td>
