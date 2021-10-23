@@ -25,7 +25,7 @@ SECRET_KEY = 'pctw!29)!16_eax46fl)n8@=lk8z9-+92u_kpzs$9fl*6=z1^k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = "authentication.User"
 
